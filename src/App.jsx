@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-       <div className="relative min-h-screen bg-gray-50">
+       <div className="relative min-h-screen bg-white">
       <h1 className="text-center pt-10 text-3xl font-bold">Welcome to Dovetail</h1>
       <ChatPopup />
     </div>
