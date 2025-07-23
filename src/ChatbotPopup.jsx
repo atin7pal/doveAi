@@ -130,7 +130,7 @@ export default function ChatPopup() {
             className="flex items-center justify-between bg-black text-white px-4 py-3"
           >
             <img src={icon} alt="bot" className="h-8" />
-            <span className="font-bold">Dovetail Assistant</span>
+            <span className="font-bold">Dovetail Ai</span>
             <button onClick={() => setIsOpen(false)}>
               <FaTimes />
             </button>
