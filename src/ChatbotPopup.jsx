@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import icon from "/aicolorful.png";
 import user from "/user.png";
 import { SiTopcoder } from "react-icons/si";
+import ReactMarkdown from "react-markdown";
 
 const socket = io("https://aiagent-ohdp.onrender.com/");
 
@@ -120,7 +121,7 @@ export default function ChatPopup() {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="w-80 h-[500px] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden"
+          className="w-[350px] h-[500px] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden"
         >
           {/* Header */}
           <motion.div
@@ -129,7 +130,7 @@ export default function ChatPopup() {
             animate="visible"
             className="flex items-center justify-between bg-black text-white px-4 py-3"
           >
-            <img src={icon} alt="bot" className="h-8" />
+            <img src={icon} alt="bot" className="h-10" />
             <span className="font-bold">Dovetail Ai</span>
             <button onClick={() => setIsOpen(false)}>
               <FaTimes />
@@ -157,7 +158,7 @@ export default function ChatPopup() {
                   <img src={icon} alt="bot" className="w-6 mr-2" />
                 )}
                 <div
-                  className={`px-3 py-2 rounded-lg max-w-xs text-wrap break-words ${
+                  className={`px-2 py-2 rounded-lg max-w-xs text-wrap break-words ${
                     msg.sender === "user"
                       ? "bg-blue-500 text-white ml-4 text-end"
                       : "bg-white text-black mr-4 text-start"
@@ -170,7 +171,40 @@ export default function ChatPopup() {
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-700"></div>
                     </div>
                   ) : (
-                    msg.text
+                    <ReactMarkdown
+                      children={msg.text}
+                      components={{
+                        a: ({ node, ...props }) => (
+                          <a
+                            {...props}
+                            className="underline w-fit text-white"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          />
+                        ),
+                        ul: ({ node, ...props }) => (
+                          <ul {...props} className="list-inside" />
+                        ),
+                        ol: ({ node, ...props }) => (
+                          <ol {...props} className="list-decimal list-inside" />
+                        ),
+                        li: ({ node, ...props }) => (
+                          <li
+                            {...props}
+                            className="mb-1 bg-gray-100 px-2 py-1 rounded-lg"
+                          />
+                        ),
+                        p: ({ node, ...props }) => (
+                          <p {...props} className="mb-1 text-sm" />
+                        ),
+                        strong: ({ node, ...props }) => (
+                          <strong
+                            {...props}
+                            className="font-semibold text-sm"
+                          />
+                        ),
+                      }}
+                    />
                   )}
                 </div>
                 {msg.sender === "user" && (
